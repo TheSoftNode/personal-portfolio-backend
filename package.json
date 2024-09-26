@@ -2,7 +2,7 @@
   "name": "personal-portfolio-backend",
   "version": "1.0.0",
   "description": "the backend of my personal portfolio",
-  "main": "startup/server.js",
+  "main": "startups/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -21,5 +21,14 @@
   "bugs": {
     "url": "https://github.com/TheSoftNode/personal-portfolio-backend/issues"
   },
-  "homepage": "https://github.com/TheSoftNode/personal-portfolio-backend#readme"
+  "homepage": "https://github.com/TheSoftNode/personal-portfolio-backend#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "helmet": "^7.1.0",
+    "mongoose": "^8.6.3",
+    "morgan": "^1.10.0",
+    "nodemon": "^3.1.7"
+  }
 }
