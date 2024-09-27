@@ -2,9 +2,9 @@
   "name": "personal-portfolio-backend",
   "version": "1.0.0",
   "description": "the backend of my personal portfolio",
-  "main": "startups/server.js",
+  "main": "startups/server.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "ts-node-dev  --respawn --transpile-only  startUps/server.ts"
   },
   "repository": {
     "type": "git",
@@ -29,6 +29,14 @@
     "helmet": "^7.1.0",
     "mongoose": "^8.6.3",
     "morgan": "^1.10.0",
-    "nodemon": "^3.1.7"
+    "nodemon": "^3.1.7",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.6.2"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/morgan": "^1.9.9",
+    "@types/node": "^22.7.3"
   }
 }
