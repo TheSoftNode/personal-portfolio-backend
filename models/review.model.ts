@@ -23,7 +23,7 @@ const reviewSchema = new Schema<IReview>(
 
         reviewRating: {
             type: Number,
-            min: 1,
+            min: [1, "please kindly rate me. Thank you."],
             max: 5,
         },
 
@@ -33,8 +33,8 @@ const reviewSchema = new Schema<IReview>(
         },
 
         userLinks: [{
-            title: { type: String, required: true },
-            link: { type: String, required: true }
+            title: { type: String },
+            link: { type: String}
         }]
     },
     { timestamps: true }

@@ -13,7 +13,7 @@ export interface IReview extends Document
     reviewText: string;
     reviewRating?: number;
     userPhoto?: string;
-    userLinks: IUserLink[];
+    userLinks?: IUserLink[];
     createdAt: Date;
     updatedAt: Date;
 }
