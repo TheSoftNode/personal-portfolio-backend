@@ -8,8 +8,8 @@ router.route("/create-review").post(createReview);
 
 router.route("/get-all-reviews").get(getAllReviews);
 
-router.route("/get-review").get(getReview);
+router.route("/get-review/:id").get(getReview);
 
-router.route("/delete-review").get(deleteReview);
+router.route("/delete-review/:id").get(deleteReview);
 
 export default router;

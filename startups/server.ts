@@ -21,6 +21,7 @@ dotenv.config({
 const DB_CLOUD: string =
     process.env.DB_CLOUD.replace("<password>", process.env.PASSWORD) || "";
 
+
 // Create a port
 const port = process.env.PORT || 3000;
 
