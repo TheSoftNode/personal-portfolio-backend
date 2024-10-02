@@ -7,13 +7,11 @@ const reviewSchema = new Schema<IReview>(
         userFullname: {
             type: String,
             required: [true, "Please provide your full name"],
-            unique: true
         },
 
         userTitle: {
             type: String,
             required: [true, "Please enter your title"],
-            unique: true
         },
 
         reviewText: {
@@ -32,6 +30,10 @@ const reviewSchema = new Schema<IReview>(
             default: "default.jpg"
         },
 
+        gender: {
+            type: String,
+        },
+
         userLinks: [{
             title: { type: String },
             link: { type: String}
@@ -40,6 +42,7 @@ const reviewSchema = new Schema<IReview>(
     { timestamps: true }
 );
 
+// reviewSchema.index({ userFullname: 1,  userTitle: 1 }, { unique: true });
 
 const Review: Model<IReview> = mongoose.model(
     "Review",
