@@ -9,9 +9,9 @@ export default class Email
   data: object;
   from: string;
 
-  constructor(user: any, data: object, from: string)
+  constructor(to:string, data: object, from: string)
   {
-    this.to = user.email;
+    this.to = to;
     this.data = data;
     this.from = from;
   }
@@ -30,7 +30,7 @@ export default class Email
   }
 
   // Send Actual Email
-  async send(template: string, subject: string)
+  async send(template: string, subject: string, attachments?: Express.Multer.File[])
   {
     //get the path to the email template file
     const emailTemplatePath = path.join(
@@ -48,21 +48,25 @@ export default class Email
       to: this.to,
       subject,
       html,
+      attachments: attachments ? attachments.map(file => ({
+        filename: file.originalname,
+        path: file.path
+      })) : []
     };
 
     // 3) Create a transport and send email
     await this.newTransport().sendMail(mailOptions);
   }
 
-  async activateRegistration()
+  async thankYou()
   {
-    await this.send("activation-mail.ejs", "Activate Your Account");
+    await this.send("contact.ejs", "Thank you for reaching out!");
   }
 
-  async OrderConfirmation()
+  async helloByClient()
   {
-    await this.send("order-confirmation.ejs", "Order Confirmation");
+    await this.send("client-contact.ejs", "New Portfolio Message!");
   }
 
-  
+
 }

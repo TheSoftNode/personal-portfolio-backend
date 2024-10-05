@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,6 +14,7 @@
       padding: 0;
       line-height: 1.6;
     }
+
     .container {
       width: 80%;
       margin: auto;
@@ -21,18 +23,22 @@
       border-radius: 10px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
+
     .header {
       text-align: center;
       padding: 10px 0;
       border-bottom: 2px solid #FE705A;
     }
+
     h1 {
       color: #FE705A;
       font-size: 24px;
     }
+
     .content {
       padding: 20px 0;
     }
+
     .footer {
       text-align: center;
       font-size: 14px;
@@ -41,11 +47,13 @@
       border-top: 1px solid #ddd;
       padding-top: 10px;
     }
+
     .client-info {
       margin-bottom: 20px;
     }
   </style>
 </head>
+
 <body>
   <div class="container">
     <div class="header">
@@ -54,15 +62,23 @@
     <div class="content">
       <p>Hello Team,</p>
       <p>You have received a new message from a client through the contact form.</p>
-      
+
       <div class="client-info">
-        <p><strong>Name:</strong> {{clientName}}</p>
-        <p><strong>Email:</strong> <a href="mailto:{{clientEmail}}">{{clientEmail}}</a></p>
-        <p><strong>Subject:</strong> {{clientSubject}}</p>
+        <p><strong>Name:</strong>
+          <%=user.name %>
+        </p>
+        <p><strong>Email:</strong> <a href=`mailto:<%=user.email %>`>
+            <%=user.email %>
+          </a></p>
+        <p><strong>Subject:</strong>
+          <%=user.subject %>
+        </p>
         <p><strong>Message:</strong></p>
-        <p>{{clientMessage}}</p>
+        <p>
+          <%=user.message %>
+        </p>
       </div>
-      
+
       <p>Best regards,</p>
       <p>Your Team</p>
     </div>
@@ -71,4 +87,5 @@
     </div>
   </div>
 </body>
+
 </html>
