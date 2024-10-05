@@ -4,7 +4,7 @@
   "description": "the backend of my personal portfolio",
   "main": "startups/server.ts",
   "scripts": {
-    "dev": "ts-node-dev  --respawn --transpile-only  startUps/server.ts"
+    "dev": "ts-node-dev  --respawn --transpile-only  startups/server.ts"
   },
   "repository": {
     "type": "git",
