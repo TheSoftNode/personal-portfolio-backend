@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Message from Client</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+    }
+    .container {
+      width: 80%;
+      margin: auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .header {
+      text-align: center;
+      padding: 10px 0;
+      border-bottom: 2px solid #FE705A;
+    }
+    h1 {
+      color: #FE705A;
+      font-size: 24px;
+    }
+    .content {
+      padding: 20px 0;
+    }
+    .footer {
+      text-align: center;
+      font-size: 14px;
+      color: #777;
+      margin-top: 20px;
+      border-top: 1px solid #ddd;
+      padding-top: 10px;
+    }
+    .client-info {
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>New Message from Client</h1>
+    </div>
+    <div class="content">
+      <p>Hello Team,</p>
+      <p>You have received a new message from a client through the contact form.</p>
+      
+      <div class="client-info">
+        <p><strong>Name:</strong> {{clientName}}</p>
+        <p><strong>Email:</strong> <a href="mailto:{{clientEmail}}">{{clientEmail}}</a></p>
+        <p><strong>Subject:</strong> {{clientSubject}}</p>
+        <p><strong>Message:</strong></p>
+        <p>{{clientMessage}}</p>
+      </div>
+      
+      <p>Best regards,</p>
+      <p>Your Team</p>
+    </div>
+    <div class="footer">
+      <p>Thank you for your attention!</p>
+    </div>
+  </div>
+</body>
+</html>
