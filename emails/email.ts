@@ -9,7 +9,7 @@ export default class Email
   data: object;
   from: string;
 
-  constructor(to:string, data: object, from: string)
+  constructor(to: string, data: object, from: string)
   {
     this.to = to;
     this.data = data;
@@ -30,7 +30,7 @@ export default class Email
   }
 
   // Send Actual Email
-  async send(template: string, subject: string, attachments?: Express.Multer.File[])
+  async send(template: string, subject: string, attachments = [])
   {
     //get the path to the email template file
     const emailTemplatePath = path.join(
@@ -48,10 +48,8 @@ export default class Email
       to: this.to,
       subject,
       html,
-      attachments: attachments ? attachments.map(file => ({
-        filename: file.originalname,
-        path: file.path
-      })) : []
+      attachments: attachments
+     
     };
 
     // 3) Create a transport and send email

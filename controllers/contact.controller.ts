@@ -1,63 +1,72 @@
-import express from 'express';
 import multer from 'multer';
+import { Request, Response } from 'express';
 import path from 'path';
 import Email from '../emails/email';
+import catchAsync from '../utils/catchAsync';
 
-const router = express.Router();
-
-// Set up Multer storage as described above
+// Configure multer to store files with the original name in the uploads folder
 const storage = multer.diskStorage({
     destination: (req, file, cb) =>
     {
-        cb(null, 'uploads/'); // Directory to store uploaded files
+        cb(null, 'uploads/'); // Save to the 'uploads/' directory
     },
     filename: (req, file, cb) =>
     {
-        const ext = path.extname(file.originalname);
-        const name = path.basename(file.originalname, ext);
-        const timestamp = Date.now();
-        cb(null, `${name}-${timestamp}${ext}`);
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+        cb(null, uniqueSuffix + path.extname(file.originalname)); // Save with unique name
     }
 });
 
-const upload = multer({
-    storage,
-    limits: {
-        fileSize: 5 * 1024 * 1024, // Limit files to 5 MB
-    },
-    fileFilter: (req, file, cb) =>
-    {
-        const fileTypes = /jpeg|jpg|png|gif|pdf/;
-        const extname = fileTypes.test(path.extname(file.originalname).toLowerCase());
-        const mimetype = fileTypes.test(file.mimetype);
-        if (extname && mimetype)
-        {
-            return cb(null, true);
-        }
-        cb(new Error('Error: File type not supported!'));
-    },
-});
+// Use multer with the customized storage configuration
+export const upload = multer({ storage });
 
-// Change the route to handle multiple files
-router.post("/contact", upload.array("attachments"), async (req, res) =>
+
+export const contact = catchAsync(async (req: Request, res: Response) =>
 {
     try
     {
         const { name, email, subject, message } = req.body;
-        const attachments = req.files as Express.Multer.File[];
+        const attachments = req.files;
+
+        // Check if attachments is an object (with field names as keys) or an array
+        let emailAttachments: Express.Multer.File[] = [];
+
+        if (Array.isArray(attachments))
+        {
+            // If it's already an array, use it directly
+            emailAttachments = attachments;
+        } else if (attachments && typeof attachments === 'object')
+        {
+            // If it's an object, flatten it to get all files
+            emailAttachments = Object.values(attachments).flat();
+        }
+
+        emailAttachments = emailAttachments.map(file =>
+        {
+            return {
+                ...file,
+                // Assuming the public URL for the uploaded files is '/uploads/'
+                path: `${req.protocol}://${req.get('host')}/uploads/${file.filename}`,
+            };
+        });
+
+        console.log(emailAttachments);
 
         const from = `${name}<${email}>`;
         const to = "thesoftnode@gmail.com";
 
         const data = {
             user: { name, email, subject, message },
-          };
+            emailAttachments
+        };
 
         // Create an instance of your Email class and send the email
-        const emailInstance = new Email(to, data, from);
+        const sendMail = new Email(to, data, from);
+        const sendMailToClient = new Email(email, data, to);
 
         // Send the email with attachments
-        await emailInstance.send("client-contact.ejs", "New Contact Form Submission", attachments);
+        await sendMail.send("client-contact.ejs", "New Contact Form Submission", emailAttachments);
+        await sendMailToClient.send("contact.ejs", "Thank you for reaching out 🎉");
 
         res.status(200).json({ message: "Email sent successfully!" });
     } catch (error)
@@ -67,4 +76,4 @@ router.post("/contact", upload.array("attachments"), async (req, res) =>
     }
 });
 
-export default router;
+

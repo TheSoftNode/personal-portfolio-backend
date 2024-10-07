@@ -1,6 +1,6 @@
 import express from "express";
 import reviewRouter from "../routes/review.route";
-import contactRouter from "../controllers/contact.controller";
+import contactRouter from "../routes/contact.route";
 
 export const mountedRoutes = function (app: any)
 {
