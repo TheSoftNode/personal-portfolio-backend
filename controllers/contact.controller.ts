@@ -50,7 +50,6 @@ export const contact = catchAsync(async (req: Request, res: Response) =>
             };
         });
 
-        console.log(emailAttachments);
 
         const from = `${name}<${email}>`;
         const to = "thesoftnode@gmail.com";
@@ -68,7 +67,10 @@ export const contact = catchAsync(async (req: Request, res: Response) =>
         await sendMail.send("client-contact.ejs", "New Contact Form Submission", emailAttachments);
         await sendMailToClient.send("contact.ejs", "Thank you for reaching out 🎉");
 
-        res.status(200).json({ message: "Email sent successfully!" });
+        res.status(200).json({
+            status: "success",
+            message: "Thank you for reaching out 🎉. We'd get back to you shortly"
+        });
     } catch (error)
     {
         console.error(error);
